@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:otlob/details_view.dart';
 import 'package:otlob/models/product_model.dart';
 
 class HomeView extends StatelessWidget {
@@ -23,21 +24,28 @@ class HomeView extends StatelessWidget {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, childAspectRatio: 0.75),
                   itemBuilder: (context, index) {
-                    return Card(
-                      child: Column(
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: snapshot.data![index].thumbnail ?? '',
-                            // placeholder: (context, url) =>
-                            //     CircularProgressIndicator(),
-                            // errorWidget: (context, url, error) =>
-                            //     Icon(Icons.error),
-                          ),
-                          Text(
-                            snapshot.data![index].title ?? '',
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, ProductDetailsView.routeName,
+                            arguments: snapshot.data![index]);
+                      },
+                      child: Card(
+                        child: Column(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: snapshot.data![index].thumbnail ?? '',
+                              // placeholder: (context, url) =>
+                              //     CircularProgressIndicator(),
+                              // errorWidget: (context, url, error) =>
+                              //     Icon(Icons.error),
+                            ),
+                            Text(
+                              snapshot.data![index].title ?? '',
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   });

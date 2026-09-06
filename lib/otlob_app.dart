@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:otlob/details_view.dart';
 import 'package:otlob/nav_bar_view.dart';
 import 'package:otlob/on_boarding_view.dart';
 
@@ -16,6 +17,7 @@ class Otlob extends StatelessWidget {
           routes: {
             '/': (context) => OnBoardingView(),
             '/nav': (context) => NavBarView(),
+            ProductDetailsView.routeName: (context) => ProductDetailsView(),
           },
           title: 'Flutter Demo',
           theme: ThemeData(
