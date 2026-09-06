@@ -1,47 +1,213 @@
 class ProductModel {
-  // final int id;
-  final String title;
-  // final String description;
-  // final String category;
-  // final num price;
-  // final num discountPercentage;
-  // final num rating;
-  // final num stock;
-  final String thumbnail;
+  num? id;
+  String? title;
+  String? description;
+  String? category;
+  num? price;
+  num? discountPercentage;
+  num? rating;
+  num? stock;
+  List<String>? tags;
+  String? brand;
+  String? sku;
+  num? weight;
+  Dimensions? dimensions;
+  String? warrantyInformation;
+  String? shippingInformation;
+  String? availabilityStatus;
+  List<Reviews>? reviews;
+  String? returnPolicy;
+  num? minimumOrderQuantity;
+  Meta? meta;
+  List<String>? images;
+  String? thumbnail;
 
   ProductModel({
-    // required this.id,
-    required this.title,
-    // required this.description,
-    // required this.category,
-    // required this.price,
-    // required this.discountPercentage,
-    // required this.rating,
-    // required this.stock,
-    required this.thumbnail,
+    this.id,
+    this.title,
+    this.description,
+    this.category,
+    this.price,
+    this.discountPercentage,
+    this.rating,
+    this.stock,
+    this.tags,
+    this.brand,
+    this.sku,
+    this.weight,
+    this.dimensions,
+    this.warrantyInformation,
+    this.shippingInformation,
+    this.availabilityStatus,
+    this.reviews,
+    this.returnPolicy,
+    this.minimumOrderQuantity,
+    this.meta,
+    this.images,
+    this.thumbnail,
   });
 
-  //json convert => object
-  // factoy constructor to create a ProductModel from JSON data
+  ProductModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    description = json['description'];
+    category = json['category'];
+    price = json['price'];
+    discountPercentage = json['discountPercentage'];
+    rating = json['rating'];
+    stock = json['stock'];
+    tags = json['tags']?.cast<String>();
+    brand = json['brand'];
+    sku = json['sku'];
+    weight = json['weight'];
+    dimensions = json['dimensions'] != null
+        ? Dimensions.fromJson(json['dimensions'])
+        : null;
+    warrantyInformation = json['warrantyInformation'];
+    shippingInformation = json['shippingInformation'];
+    availabilityStatus = json['availabilityStatus'];
 
-  factory ProductModel.fromjson(Map<String, dynamic> json) {
-    return ProductModel(
-        // id: json['id'],
-        title: json['title'],
-        // description: json['description'],
-        // category: json['category'],
-        // price: json['price'],
-        // discountPercentage: json['discountPercentage'],
-        // rating: json['rating'],
-        // stock: json['stock'],
-        thumbnail: json['thumbnail']);
+    if (json['reviews'] != null) {
+      reviews = <Reviews>[];
+      json['reviews'].forEach((v) {
+        reviews!.add(Reviews.fromJson(v));
+      });
+    }
+
+    returnPolicy = json['returnPolicy'];
+    minimumOrderQuantity = json['minimumOrderQuantity'];
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
+    images = json['images']?.cast<String>();
+    thumbnail = json['thumbnail'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['title'] = title;
+    data['description'] = description;
+    data['category'] = category;
+    data['price'] = price;
+    data['discountPercentage'] = discountPercentage;
+    data['rating'] = rating;
+    data['stock'] = stock;
+    data['tags'] = tags;
+    data['brand'] = brand;
+    data['sku'] = sku;
+    data['weight'] = weight;
+
+    if (dimensions != null) {
+      data['dimensions'] = dimensions!.toJson();
+    }
+
+    data['warrantyInformation'] = warrantyInformation;
+    data['shippingInformation'] = shippingInformation;
+    data['availabilityStatus'] = availabilityStatus;
+
+    if (reviews != null) {
+      data['reviews'] = reviews!.map((v) => v.toJson()).toList();
+    }
+
+    data['returnPolicy'] = returnPolicy;
+    data['minimumOrderQuantity'] = minimumOrderQuantity;
+
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
+    }
+
+    data['images'] = images;
+    data['thumbnail'] = thumbnail;
+
+    return data;
   }
 }
-// "id": 1,
-// "title": "Essence Mascara Lash Princess",
-// "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
-// "category": "beauty",
-// "price": 9.99,
-// "discountPercentage": 10.48,
-// "rating": 2.56,
-// "stock": 99,
+
+class Dimensions {
+  num? width;
+  num? height;
+  num? depth;
+
+  Dimensions({
+    this.width,
+    this.height,
+    this.depth,
+  });
+
+  Dimensions.fromJson(Map<String, dynamic> json) {
+    width = json['width'];
+    height = json['height'];
+    depth = json['depth'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['width'] = width;
+    data['height'] = height;
+    data['depth'] = depth;
+    return data;
+  }
+}
+
+class Reviews {
+  num? rating;
+  String? comment;
+  String? date;
+  String? reviewerName;
+  String? reviewerEmail;
+
+  Reviews({
+    this.rating,
+    this.comment,
+    this.date,
+    this.reviewerName,
+    this.reviewerEmail,
+  });
+
+  Reviews.fromJson(Map<String, dynamic> json) {
+    rating = json['rating'];
+    comment = json['comment'];
+    date = json['date'];
+    reviewerName = json['reviewerName'];
+    reviewerEmail = json['reviewerEmail'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['rating'] = rating;
+    data['comment'] = comment;
+    data['date'] = date;
+    data['reviewerName'] = reviewerName;
+    data['reviewerEmail'] = reviewerEmail;
+    return data;
+  }
+}
+
+class Meta {
+  String? createdAt;
+  String? updatedAt;
+  String? barcode;
+  String? qrCode;
+
+  Meta({
+    this.createdAt,
+    this.updatedAt,
+    this.barcode,
+    this.qrCode,
+  });
+
+  Meta.fromJson(Map<String, dynamic> json) {
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    barcode = json['barcode'];
+    qrCode = json['qrCode'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['barcode'] = barcode;
+    data['qrCode'] = qrCode;
+    return data;
+  }
+}

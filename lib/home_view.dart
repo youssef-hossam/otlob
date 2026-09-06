@@ -27,14 +27,14 @@ class HomeView extends StatelessWidget {
                       child: Column(
                         children: [
                           CachedNetworkImage(
-                            imageUrl: snapshot.data![index].thumbnail,
+                            imageUrl: snapshot.data![index].thumbnail ?? '',
                             // placeholder: (context, url) =>
                             //     CircularProgressIndicator(),
                             // errorWidget: (context, url, error) =>
                             //     Icon(Icons.error),
                           ),
                           Text(
-                            snapshot.data![index].title,
+                            snapshot.data![index].title ?? '',
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -53,7 +53,7 @@ class HomeView extends StatelessWidget {
     // });
     for (var product in response.data['products']) {
       // print(product);
-      products.add(ProductModel.fromjson(product));
+      products.add(ProductModel.fromJson(product));
     }
     print(products[0].title);
     return products;
