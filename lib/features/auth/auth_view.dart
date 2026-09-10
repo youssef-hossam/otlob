@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:otlob/core/utils/back_button.dart';
-import 'package:otlob/features/auth/login_form.dart';
+import 'package:otlob/features/auth/sign_in.dart';
 import 'package:otlob/features/auth/sign_up.dart';
 
 class AuthView extends StatefulWidget {
@@ -125,7 +125,7 @@ class _LoginSignupScreenState extends State<AuthView> {
                             ],
                           ),
                           const SizedBox(height: 30),
-                          isLogin ? const LoginForm() : SignUpForm(),
+                          isLogin ? SignInForm() : SignUpForm(),
                         ],
                       ),
                     ),

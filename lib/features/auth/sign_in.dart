@@ -1,20 +1,11 @@
-import 'dart:developer';
-
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:otlob/core/networking/api_error_handler.dart';
-import 'package:otlob/core/networking/error_model.dart';
 import 'package:otlob/features/auth/repos/auth_repo.dart';
 
-class SignUpForm extends StatelessWidget {
+class SignInForm extends StatelessWidget {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-
-  SignUpForm({super.key});
+  SignInForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,53 +16,6 @@ class SignUpForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'first Name',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your name';
-                }
-                return null;
-              },
-              controller: firstNameController,
-              decoration: InputDecoration(
-                hintText: 'enter yourfirst name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ),
-            ),
-            const Text(
-              'last Name',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 15),
-            TextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your name';
-                }
-                return null;
-              },
-              controller: lastNameController,
-              decoration: InputDecoration(
-                hintText: 'enter your last name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            const Text(
               'Email address',
               style: TextStyle(
                 fontSize: 12,
@@ -81,20 +25,18 @@ class SignUpForm extends StatelessWidget {
             const SizedBox(height: 8),
             TextFormField(
               controller: emailController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                } else if (!value.contains('@')) {
-                  return 'Please enter a valid email';
-                }
-                return null;
-              },
               decoration: InputDecoration(
-                hintText: 'your name @gmail.com',
+                hintText: 'ekamcy@gmail.com',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(6),
                 ),
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 15),
             const Text(
@@ -107,6 +49,13 @@ class SignUpForm extends StatelessWidget {
             const SizedBox(height: 8),
             TextFormField(
               controller: passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: '************',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6),
+                ),
+              ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your password';
@@ -120,32 +69,40 @@ class SignUpForm extends StatelessWidget {
                   return 'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character';
                 }
               },
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6),
+            ),
+            const SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Forget Password?',
+                  style: TextStyle(
+                    color: Color(0xFFE50046),
+                    fontSize: 11,
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 10),
             SizedBox(
               width: double.infinity,
               height: 45,
               child: ElevatedButton(
                 onPressed: () {
-                  if (formKey.currentState?.validate() ?? false) {
-                    AuthRepo().signUp(context,
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                        firstName: firstNameController.text.trim(),
-                        lastName: lastNameController.text.trim());
+                  if (formKey.currentState!.validate()) {
+                    AuthRepo().signIn(
+                      context,
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
                   }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFE50046),
                 ),
                 child: const Text(
-                  'Sign Up',
+                  'Login',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -156,7 +113,7 @@ class SignUpForm extends StatelessWidget {
               height: 45,
               child: ElevatedButton(
                 onPressed: () {},
-                child: const Text('Sign up with Google'),
+                child: const Text('Login with Google'),
               ),
             ),
           ],
