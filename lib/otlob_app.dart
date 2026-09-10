@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:otlob/features/auth/auth_view.dart';
 import 'package:otlob/details_view.dart';
 import 'package:otlob/nav_bar_view.dart';
 import 'package:otlob/on_boarding_view.dart';
@@ -15,7 +16,7 @@ class Otlob extends StatelessWidget {
         minTextAdapt: true,
         child: MaterialApp(
           routes: {
-            '/': (context) => OnBoardingView(),
+            '/': (context) => AuthView(),
             '/nav': (context) => NavBarView(),
             ProductDetailsView.routeName: (context) => ProductDetailsView(),
           },
