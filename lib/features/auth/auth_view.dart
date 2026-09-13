@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otlob/core/utils/back_button.dart';
+import 'package:otlob/features/auth/cubit/sign_in_cubit.dart';
 import 'package:otlob/features/auth/sign_in.dart';
 import 'package:otlob/features/auth/sign_up.dart';
 
@@ -125,7 +127,12 @@ class _LoginSignupScreenState extends State<AuthView> {
                             ],
                           ),
                           const SizedBox(height: 30),
-                          isLogin ? SignInForm() : SignUpForm(),
+                          isLogin
+                              ? BlocProvider<SignInCubit>(
+                                  create: (context) => SignInCubit(),
+                                  child: SignInForm(),
+                                )
+                              : SignUpForm(),
                         ],
                       ),
                     ),

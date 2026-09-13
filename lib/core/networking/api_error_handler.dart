@@ -5,7 +5,7 @@ import 'package:otlob/core/networking/error_model.dart';
 import 'package:otlob/core/utils/display_awesome_dialog.dart';
 
 class ApiErrorHandeler {
-  static handleError(DioException e, BuildContext context) {
+  static   handleError(DioException e, ) {
     if (e.type case DioExceptionType.badResponse) {
       print('Status Code: ${e.response?.statusCode}');
       switch (e.response?.statusCode) {
@@ -13,37 +13,29 @@ class ApiErrorHandeler {
           ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
           String errorMessage = '';
           errorModel.errors.forEach((error) => errorMessage += '$error\n');
-
-          return displayAwesomeDialog(context,
-              errorMessage: errorMessage, meesage: null);
+return errorMessage;
+          
         // return errorMessage;
         case 401:
           ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
           String errorMessage = '';
           errorModel.errors.forEach((error) => errorMessage += '$error\n');
-          return displayAwesomeDialog(context,
-              errorMessage: errorMessage, meesage: null);
+          return errorMessage;
         case 403:
           ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
           String errorMessage = '';
           errorModel.errors.forEach((error) => errorMessage += '$error\n');
-          return displayAwesomeDialog(
-            context,
-            errorMessage: errorMessage,
-            meesage: null,
-          );
+        return errorMessage;
         case 404:
           ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
           String errorMessage = '';
           errorModel.errors.forEach((error) => errorMessage += '$error\n');
-          return displayAwesomeDialog(context,
-              errorMessage: errorMessage, meesage: null);
+      return errorMessage;
         case 422:
           ErrorModel errorModel = ErrorModel.fromJson(e.response!.data);
           String errorMessage = '';
           errorModel.errors.forEach((error) => errorMessage += '$error\n');
-          return displayAwesomeDialog(context,
-              errorMessage: errorMessage, meesage: null);
+         return errorMessage;
 
         case 500:
           return 'Internal Server Error';

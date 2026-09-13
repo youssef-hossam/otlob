@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:otlob/home_view.dart';
+import 'package:otlob/home/presentation/views/home_view.dart';
 
 class NavBar extends StatefulWidget {
   NavBar({super.key});

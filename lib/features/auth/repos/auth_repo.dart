@@ -28,7 +28,9 @@ class AuthRepo {
       displayAwesomeDialog(context,
           errorMessage: null, meesage: 'Account created successfully');
     } on DioException catch (e) {
-      ApiErrorHandeler.handleError(e, context);
+      ApiErrorHandeler.handleError(
+        e,
+      );
     }
   }
 
@@ -39,7 +41,9 @@ class AuthRepo {
           'https://accessories-eshop.runasp.net/api/auth/login',
           data: {"email": email, "password": password});
     } on DioException catch (e) {
-       ApiErrorHandeler.handleError(e, context);
+      ApiErrorHandeler.handleError(
+        e,
+      );
     }
   }
 }
