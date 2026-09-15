@@ -38,9 +38,11 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_native_splash: ^2.3.11
   flutter_screenutil: ^5.9.3
+  flutter_secure_storage: ^4.2.1
   font_awesome_flutter: ^10.9.0
   introduction_screen: ^3.1.17
   onboarding: ^4.0.2
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_lints: ^2.0.0

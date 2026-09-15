@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otlob/features/auth/auth_view.dart';
 import 'package:otlob/details_view.dart';
-import 'package:otlob/home/presentation/cubit/products_cubit.dart';
-import 'package:otlob/home/presentation/views/home_view.dart';
+import 'package:otlob/features/presentation/cubit/products_cubit.dart';
+import 'package:otlob/features/presentation/views/home_view.dart';
+import 'package:otlob/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:otlob/features/profile/presentation/views/profile_view.dart';
+
 import 'package:otlob/nav_bar_view.dart';
 import 'package:otlob/on_boarding_view.dart';
 
@@ -25,7 +28,11 @@ class Otlob extends StatelessWidget {
           ],
           child: MaterialApp(
             routes: {
-              '/': (context) => AuthView(),
+              ProfileView.routeName: (context) => BlocProvider<ProfileCubit>(
+                    create: (context) => ProfileCubit()..getProfileData(),
+                    child: ProfileView(),
+                  ),
+              '/': (context) => NavBarView(),
               '/nav': (context) => NavBarView(),
               ProductDetailsView.routeName: (context) => ProductDetailsView(),
             },

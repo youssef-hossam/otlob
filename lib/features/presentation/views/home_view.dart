@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otlob/details_view.dart';
-import 'package:otlob/features/auth/presentation/cubit/products_cubit.dart';
+import 'package:otlob/features/presentation/cubit/products_cubit.dart';
 import 'package:otlob/models/product_model.dart';
 
 class HomeView extends StatelessWidget {

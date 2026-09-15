@@ -1,52 +1,26 @@
-import 'dart:developer';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:otlob/core/utils/cache/cache_constants.dart';
+import 'package:otlob/core/utils/cache/cache_helper.dart';
+import 'package:otlob/features/profile/models/user_model.dart';
 import 'package:otlob/otlob_app.dart';
 
-void main() {
-  // Your main application code here
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-//  Map <String, dynamic> jsonResponse = {
-//     "statusCode": 400,
-//     "message": "One or more errors occurred!",
-//     "errors": {
-//         "email": [
-//             "Email is not valid."
-//         ],
-//         "password": [
-//             "Password must contain at least one uppercase letter.",
-//             "Password must contain at least one special character."
-//         ]
-//     }
-// };
-// ErrorModel erroModel = ErrorModel.fromJson(jsonResponse);
-// log('Status Code: ${erroModel.statusCode}');
-// log('Message: ${erroModel.message}');
-// log('Errors: ${erroModel.errors}');
+  // Response reesponse =
+  //     await Dio().get('https://accessories-eshop.runasp.net/api/auth/me',
+  //         options: Options(headers: {
+  //           'Authorization':
+  //               'Bearer ${await CacheHelper.getSecureData(key: CacheConstants.accessToken)}',
+  //         }));
+
+  // print('Response data: ${reesponse.data}');
+
+  // UserModel user = UserModel.fromJson(reesponse.data);
+  // print('User name: ${user.fullName}');
+
+  await CacheHelper.init();
 
   runApp(const Otlob());
 }
-
-
-// {
-//     "statusCode": 400,
-//     "message": "One or more errors occurred!",
-//     "errors": {
-//         "password": [
-//             "Password must contain at least one uppercase letter.",
-//             "Password must contain at least one special character."
-//         ]
-//     }
-// }
-
-
-
-//{
-//     "statusCode": 400,
-//     "message": "One or more errors occurred!",
-//     "errors": {
-//         "email": [
-//             "Email is not valid."
-//         ]
-//     }
-// }

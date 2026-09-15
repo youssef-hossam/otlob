@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:otlob/home/presentation/views/home_view.dart';
+import 'package:otlob/features/presentation/views/home_view.dart';
+import 'package:otlob/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:otlob/features/profile/presentation/views/profile_view.dart';
 
 class NavBar extends StatefulWidget {
   NavBar({super.key});
@@ -14,7 +17,10 @@ class _NavBarState extends State<NavBar> {
   List<Widget> pages = [
     HomeView(),
     Center(child: Text('Search Page')),
-    Center(child: Text('Profile Page')),
+    BlocProvider(
+      create: (context) => ProfileCubit()..getProfileData(),
+      child: ProfileView(),
+    ),
     Center(child: Text('Settings Page')),
   ];
 
