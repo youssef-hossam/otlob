@@ -12,6 +12,7 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   bool isNigeriaSelected = true;
 
+/// preview the user name from the cubit
   @override
   Widget build(BuildContext context) {
     return Scaffold(
