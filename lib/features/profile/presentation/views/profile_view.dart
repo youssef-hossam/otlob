@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otlob/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:otlob/features/profile/presentation/widgets/build_info.dart';
+import 'package:otlob/features/profile/presentation/widgets/build_info_row.dart';
+import 'package:otlob/features/profile/presentation/widgets/build_square_button.dart';
 
 class ProfileView extends StatefulWidget {
   static const String routeName = '/profile';
@@ -12,7 +16,7 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   bool isNigeriaSelected = true;
 
-/// preview the user name from the cubit
+  /// preview the user name from the cubit
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,21 +28,6 @@ class _ProfileViewState extends State<ProfileView> {
             // الجزء العلوي: الخلفية والأزرار والعنوان
             Stack(
               children: [
-                // 1. صورة الخلفية المزخرفة أعلى اليمين
-                // Positioned(
-                //   top: 0,
-                //   right: 0,
-                //   left: 0,
-                //   height: 180,
-                //   child: Opacity(
-                //     opacity: 0.25, // درجة شفافية النمط خلف العناصر
-                //     child: Image.asset(
-                //       'assets/images/pattern_bg.png', // استبدل بمسار الصورة المزخرفة لديك
-                //       fit: BoxFit.cover,
-                //     ),
-                //   ),
-                // ),
-
                 // 2. المحتوى فوق الخلفية (Back button, Bell, Title, Avatar)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -50,12 +39,12 @@ class _ProfileViewState extends State<ProfileView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildSquareButton(
+                          buildSquareButton(
                             icon: Icons.arrow_back_ios_new_rounded,
                             iconColor: Colors.redAccent,
                             onTap: () {},
                           ),
-                          _buildSquareButton(
+                          buildSquareButton(
                             icon: Icons.notifications_none_rounded,
                             iconColor: const Color(0xFFE91E63),
                             onTap: () {},
@@ -134,13 +123,21 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  _buildInfoCard(
+                  buildInfoCard(
                     children: [
-                      _buildInfoRow('Your name', ProfileCubit().userName ??),
+                      BlocBuilder<ProfileCubit, ProfileState>(
+                        builder: (context, state) {
+                          return buildInfoRow(
+                              'Your name',
+                              state is ProfileLoaded
+                                  ? state.userModel.fullName
+                                  : 'Loading...');
+                        },
+                      ),
                       const Divider(height: 24, color: Color(0xFFF2F2F2)),
-                      _buildInfoRow('Occupation', 'Manager'),
+                      buildInfoRow('Occupation', 'Manager'),
                       const Divider(height: 24, color: Color(0xFFF2F2F2)),
-                      _buildInfoRow('Employer', 'Food Couriers'),
+                      buildInfoRow('Employer', 'Food Couriers'),
                       const Divider(height: 24, color: Color(0xFFF2F2F2)),
                       // السطر الخاص بـ Switch
                       Row(
@@ -178,11 +175,19 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  _buildInfoCard(
+                  buildInfoCard(
                     children: [
-                      _buildInfoRow('Phone number', '+234 813 0400 445'),
+                      buildInfoRow('Phone number', '+234 813 0400 445'),
                       const Divider(height: 24, color: Color(0xFFF2F2F2)),
-                      _buildInfoRow('Email', 'ekamcy@mail.com'),
+                      BlocBuilder<ProfileCubit, ProfileState>(
+                        builder: (context, state) {
+                          return buildInfoRow(
+                              'Email',
+                              state is ProfileLoaded
+                                  ? state.userModel.email
+                                  : 'Example@example.com');
+                        },
+                      ),
                     ],
                   ),
 
@@ -218,63 +223,6 @@ class _ProfileViewState extends State<ProfileView> {
           ],
         ),
       ),
-    );
-  }
-
-  // ودجت إضافية لبناء الأزرار المربعة الحواف في الأعلى (زر الرجوع والجرص)
-  Widget _buildSquareButton({
-    required IconData icon,
-    required Color iconColor,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 45,
-        height: 45,
-        decoration: BoxDecoration(
-          color: const Color(0xFFFFEAEA).withOpacity(0.7),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Icon(icon, color: iconColor, size: 20),
-      ),
-    );
-  }
-
-  // ودجت الحاوية البيضاء ذات الحواف الدائرية
-  Widget _buildInfoCard({required List<Widget> children}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.black.withOpacity(0.03)),
-      ),
-      child: Column(children: children),
-    );
-  }
-
-  // ودجت لسطر البيانات (العنوان والقيمة)
-  Widget _buildInfoRow(String title, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 15,
-            color: Colors.grey,
-          ),
-        ),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-      ],
     );
   }
 }

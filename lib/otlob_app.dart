@@ -32,7 +32,7 @@ class Otlob extends StatelessWidget {
                     create: (context) => ProfileCubit()..getProfileData(),
                     child: ProfileView(),
                   ),
-              '/': (context) => NavBarView(),
+              '/': (context) => AuthView(),
               '/nav': (context) => NavBarView(),
               ProductDetailsView.routeName: (context) => ProductDetailsView(),
             },

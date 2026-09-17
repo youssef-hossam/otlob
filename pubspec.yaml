@@ -40,6 +40,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   flutter_secure_storage: ^4.2.1
   font_awesome_flutter: ^10.9.0
+  get_it: ^9.2.1
   introduction_screen: ^3.1.17
   onboarding: ^4.0.2
   shared_preferences: ^2.2.3

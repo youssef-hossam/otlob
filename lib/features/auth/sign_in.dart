@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otlob/core/utils/display_awesome_dialog.dart';
-import 'package:otlob/features/auth/cubit/sign_in_cubit.dart';
 import 'package:otlob/features/auth/repos/auth_repo.dart';
+import 'package:otlob/features/auth/sign_in_cubit/sign_in_cubit.dart';
 
 class SignInForm extends StatelessWidget {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
